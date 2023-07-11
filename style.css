@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+  }
+
+
+  .weatherHeader {
+    display:flex;
+    justify-content: flex-end;
+    padding-top: 10px;    /* this adds padding to the top*/
+    padding-bottom: 10px; /* this adds padding to the bottom */
+    padding-right: 900px;
+    background: linear-gradient(to right, #034888, #021050); /*this provides the color gradient for the background*/
+    font-size: larger; 
+   
+   
+}
+  
+   .weatherHeaderText{
+    color:white
+    
+   }
+ 
