@@ -17,7 +17,11 @@ var apiKey= '7f46a3db399e49d22151e6cea69a5811';
 
 
 
-function getWeatherByCity(cityName) {
+// function get5DayForecast(cityName){
+
+
+
+function fetchWeatherByCity(cityName){
   fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + apiKey)
     .then(function (responseObject) {
       return responseObject.json();
@@ -30,12 +34,16 @@ function getWeatherByCity(cityName) {
       var li1 = document.createElement('li');
       var li2 = document.createElement('li');
       var li3 = document.createElement('li');
-      li1.innerText = 'Temp: ' + weatherData.main.temp;
-      li2.innerText = 'Humidity: ' + weatherData.main.humidity;
-      li3.innerText = 'Wind Speed: ' + weatherData.wind.speed;
+      var li4 = document.createElement('li');
+      
+      li1.innerText = 'Date: ' + weatherData.main.date;//need to find the date 
+      li2.innerText = 'Temp: ' + weatherData.main.temp;
+      li3.innerText = 'Humidity: ' + weatherData.main.humidity;
+      li4.innerText = 'Wind Speed: ' + weatherData.wind.speed;
       ul.appendChild(li1);
       ul.appendChild(li2);
       ul.appendChild(li3);
+      ul.appendChild(li4);
 
       searchResultsContainer.innerHTML = ''; // Clear previous results
       searchResultsContainer.appendChild(h2);
@@ -43,12 +51,36 @@ function getWeatherByCity(cityName) {
     });
 }
 
+
+
+// }
+function fetch5DayWeatherForecast(cityName) {
+  fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&units=imperial&appid=' + apiKey)
+    .then(response => response.json())
+    .then(data => {
+      for(i=0; i<5; i++) {
+        document.getElementById("date1").innerHTML = "date: " + data.list[0].dt;
+      } 
+      for (i = 0; i < 5; i++) {
+        document.getElementById("day" + (i + 1) + "Temp").innerHTML = "Temp: " + Number(data.list[i].main.temp);
+      }
+      for(i = 0; i < 5; i++) {
+        document.getElementById("icon" + (i + 1)).src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon+".png";
+      }
+
+    });
+}
+
+
+
+
+
 searchBtn.addEventListener('click', function(event){
-getWeatherByCity(search.value)
+fetchWeatherByCity(search.value)
+fetch5DayWeatherForecast(search.value)
 })
 
+// searchBtn.addEventListener('click', function(event){
+//   get5DayForecast(search.value)
+//   })
 
-
-
-
-  

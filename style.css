@@ -13,30 +13,24 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-right: 900px;
+  padding: 10px 0;
   background: linear-gradient(to right, #034888, #021050);
   font-size: larger;
-}
-
-.weatherHeaderText {
   color: white;
 }
 
 .outer-container {
-  display: grid;
-  grid-template-columns: auto 1fr; /* Adjust the number of columns as needed */
-  gap: 20px; /* Set the spacing between the columns */
+  display: flex;
+  gap: 20px;
 }
 
 .citySearchCard {
   max-width: 500px;
   margin-bottom: 20px;
   margin-right: 20px;
-  flex-wrap: wrap;
   border: solid;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .form-group {
@@ -104,25 +98,24 @@
 }
 
 aside {
-  width: 100%;
   max-width: 500px;
   margin-right: 20px;
 }
 
 .resultsContainer {
-  border: 2px solid #000;
+  border: solid;
   padding: 20px;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .center-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
-  border-color: #034888;
   border: solid;
   margin-top: 20px;
+  flex-grow: 1;
 }
 
 #WeatherContainer {
@@ -134,15 +127,13 @@ aside {
   text-align: center;
 }
 
-#Para1{
+#Para1 {
   margin-bottom: 10px;
 }
 
 .weatherCards {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
 }
 
 .dayContainer1,
@@ -150,6 +141,8 @@ aside {
 .dayContainer3,
 .dayContainer4,
 .dayContainer5 {
+  flex: 0 0 calc(20% - 20px);
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -157,6 +150,9 @@ aside {
   padding: 10px;
   box-sizing: border-box;
 }
+
+
+
 
 #searchResultsContainer {
   display: flex;
@@ -166,4 +162,6 @@ aside {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  flex-shrink: 0;
+  height: 200px;
 }
