@@ -14,7 +14,7 @@ var searchResultsContainer= document.getElementById('searchResultsContainer')
 var citySearched = document.getElementById('search')
 var searchBtn = document.getElementById('submit-Button');
 var apiKey= '7f46a3db399e49d22151e6cea69a5811';
-
+//const distance = distanceData?.rows[0].elements[0]?.distance?.value || 0 
 
 
 // function get5DayForecast(cityName){
@@ -80,7 +80,4 @@ fetchWeatherByCity(search.value)
 fetch5DayWeatherForecast(search.value)
 })
 
-// searchBtn.addEventListener('click', function(event){
-//   get5DayForecast(search.value)
-//   })
 
