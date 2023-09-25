@@ -130,10 +130,7 @@ aside {
   margin-bottom: 10px;
 }
 
-.weatherCards {
-  display: flex;
-  justify-content: space-between;
-}
+
 
 .dayContainer1,
 .dayContainer2,
@@ -148,9 +145,25 @@ aside {
   border: solid;
   padding: 10px;
   box-sizing: border-box;
+  position: relative; /* Add this */
 }
 
+.dayContainer1::before,
+.dayContainer2::before,
+.dayContainer3::before,
+.dayContainer4::before,
+.dayContainer5::before {
+  content: "";
+  padding-top: 100%; /* 1:1 Aspect Ratio (square) */
+  display: block;
+}
 
+/* The rest of your CSS */
+
+.weatherCards {
+  display: flex;
+  justify-content: space-between;
+}
 
 
 #searchResultsContainer {
