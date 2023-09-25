@@ -10,11 +10,10 @@
 }
 
 .weatherHeader {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
+  display: flex;  /* Turns the container into a flex container, enabling flexbox layout */
+  justify-content: center; 
   padding: 10px 0;
-  background: linear-gradient(to right, #034888, #021050);
+  background: linear-gradient(to right, #0a69c3, #021050);
   font-size: larger;
   color: white;
 }

@@ -53,25 +53,38 @@ function fetchWeatherByCity(cityName){
 
 
 
-// }
 function fetch5DayWeatherForecast(cityName) {
   fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&units=imperial&appid=' + apiKey)
     .then(response => response.json())
     .then(data => {
-      for(i=0; i<5; i++) {
-        document.getElementById("date1").innerHTML = "date: " + data.list[0].dt;
-      } 
-      for (i = 0; i < 5; i++) {
-        document.getElementById("day" + (i + 1) + "Temp").innerHTML = "Temp: " + Number(data.list[i].main.temp);
-      }
-      for(i = 0; i < 5; i++) {
-        document.getElementById("icon" + (i + 1)).src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon+".png";
-      }
+      // Loop through the forecast data and display 5 days
+      for (var i = 0; i < 5; i++) {
+        var forecastData = data.list[i * 8]; // Data for 15:00:00 of each day
 
+        // Populate the existing container elements with weather data
+        document.getElementById("date" + (i + 1)).innerText = "Date: " + new Date(forecastData.dt * 1000).toLocaleDateString();
+
+        // Add the following lines to update the weather icon using an image tag
+        var iconElement = document.getElementById("icon" + (i + 1));
+        var weatherIconUrl = "http://openweathermap.org/img/wn/" + forecastData.weather[0].icon + ".png";
+        iconElement.src = weatherIconUrl; // Set the src attribute of the image tag
+        iconElement.alt = "Weather Icon"; // Set alt text for accessibility
+
+        document.getElementById("day" + (i + 1)).innerText = "Weather: " + forecastData.weather[0].main;
+        document.getElementById("day" + (i + 1) + "Temp").innerText = "Temp: " + forecastData.main.temp + "°F";
+        document.getElementById("day" + (i + 1) + "Wind").innerText = "Wind: " + forecastData.wind.speed + " mph";
+        document.getElementById("day" + (i + 1) + "Humidity").innerText = "Humidity: " + forecastData.main.humidity + "%";
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching 5-day forecast:', error);
     });
 }
 
-
+searchBtn.addEventListener('click', function(event){
+  fetchWeatherByCity(search.value)
+  fetch5DayWeatherForecast(search.value)
+})
 
 
 
