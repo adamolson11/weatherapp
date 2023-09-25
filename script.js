@@ -1,27 +1,28 @@
-
-
-
-//https://openweathermap.org/forecast5#parameter
-//you need two URLS. One for the daily weather...
-// 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + apiKey
-//and...('https://api.openweathermap.org/data/2.5/forecast?q='+ cityName + '&units=imperial&appid=' + apiKey)
-//
-
-
-
-
-var searchResultsContainer= document.getElementById('searchResultsContainer')
-var citySearched = document.getElementById('search')
+var searchResultsContainer = document.getElementById('searchResultsContainer');
+var citySearched = document.getElementById('search');
 var searchBtn = document.getElementById('submit-Button');
-var apiKey= '7f46a3db399e49d22151e6cea69a5811';
-//const distance = distanceData?.rows[0].elements[0]?.distance?.value || 0 
+var apiKey = '7f46a3db399e49d22151e6cea69a5811';
 
+// Create an empty array to store search history
+var searchHistory = [];
 
-// function get5DayForecast(cityName){
+// Function to add a city to the search history
+function addToSearchHistory(city) {
 
+  if (!searchHistory.includes(city)) {
+    searchHistory.push(city);
 
+   
+    var cityContainer = document.createElement('div');
+    cityContainer.innerText = city;
+    document.getElementById('searchHistoryContainer').appendChild(cityContainer);
+  }
+}
 
-function fetchWeatherByCity(cityName){
+function fetchWeatherByCity(cityName) {
+ 
+  addToSearchHistory(cityName);
+
   fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + apiKey)
     .then(function (responseObject) {
       return responseObject.json();
@@ -35,8 +36,8 @@ function fetchWeatherByCity(cityName){
       var li2 = document.createElement('li');
       var li3 = document.createElement('li');
       var li4 = document.createElement('li');
-      
-      li1.innerText = 'Date: ' + weatherData.main.date;//need to find the date 
+
+      li1.innerText = 'Date: ' + new Date(weatherData.dt * 1000).toLocaleDateString(); // Convert timestamp to date
       li2.innerText = 'Temp: ' + weatherData.main.temp;
       li3.innerText = 'Humidity: ' + weatherData.main.humidity;
       li4.innerText = 'Wind Speed: ' + weatherData.wind.speed;
@@ -45,30 +46,27 @@ function fetchWeatherByCity(cityName){
       ul.appendChild(li3);
       ul.appendChild(li4);
 
-      searchResultsContainer.innerHTML = ''; // Clear previous results
+      searchResultsContainer.innerHTML = ''; 
       searchResultsContainer.appendChild(h2);
       searchResultsContainer.appendChild(ul);
     });
 }
 
-
-
 function fetch5DayWeatherForecast(cityName) {
   fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&units=imperial&appid=' + apiKey)
     .then(response => response.json())
     .then(data => {
-      // Loop through the forecast data and display 5 days
+      
       for (var i = 0; i < 5; i++) {
-        var forecastData = data.list[i * 8]; // Data for 15:00:00 of each day
+        var forecastData = data.list[i * 8];
 
-        // Populate the existing container elements with weather data
+        
         document.getElementById("date" + (i + 1)).innerText = "Date: " + new Date(forecastData.dt * 1000).toLocaleDateString();
 
-        // Add the following lines to update the weather icon using an image tag
         var iconElement = document.getElementById("icon" + (i + 1));
         var weatherIconUrl = "http://openweathermap.org/img/wn/" + forecastData.weather[0].icon + ".png";
-        iconElement.src = weatherIconUrl; // Set the src attribute of the image tag
-        iconElement.alt = "Weather Icon"; // Set alt text for accessibility
+        iconElement.src = weatherIconUrl; 
+        iconElement.alt = "Weather Icon"; 
 
         document.getElementById("day" + (i + 1)).innerText = "Weather: " + forecastData.weather[0].main;
         document.getElementById("day" + (i + 1) + "Temp").innerText = "Temp: " + forecastData.main.temp + "°F";
@@ -81,16 +79,14 @@ function fetch5DayWeatherForecast(cityName) {
     });
 }
 
-searchBtn.addEventListener('click', function(event){
-  fetchWeatherByCity(search.value)
-  fetch5DayWeatherForecast(search.value)
-})
+searchBtn.addEventListener('click', function (event) {
+  var city = search.value;
+  fetchWeatherByCity(city);
+  fetch5DayWeatherForecast(city);
+});
 
-
-
-searchBtn.addEventListener('click', function(event){
-fetchWeatherByCity(search.value)
-fetch5DayWeatherForecast(search.value)
-})
-
-
+searchBtn.addEventListener('click', function (event) {
+  var city = search.value;
+  fetchWeatherByCity(city);
+  fetch5DayWeatherForecast(city);
+});
