@@ -1,0 +1,21 @@
+@media (max-width: 1200px) {
+  .projectcard {
+    flex: 0 0 calc(33.33% - 2%); 
+    max-width: calc(33.33% - 2%);
+  }
+}
+
+@media (max-width: 768px) {
+  .split-screen {
+    flex-direction: column; 
+  }
+
+  .aside-container {
+    flex: 0 0 100%; 
+  }
+
+  .projectcard {
+    flex: 0 0 100%; 
+    max-width: 100%;
+  }
+}
