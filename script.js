@@ -8,16 +8,16 @@ var searchHistory = [];
 
 // Function to add a city to the search history
 function addToSearchHistory(city) {
-
   if (!searchHistory.includes(city)) {
     searchHistory.push(city);
 
-   
     var cityContainer = document.createElement('div');
     cityContainer.innerText = city;
+    cityContainer.classList.add('rounded-bold-border'); // Adds the CSS class
     document.getElementById('searchHistoryContainer').appendChild(cityContainer);
   }
 }
+
 
 function fetchWeatherByCity(cityName) {
  
@@ -90,3 +90,4 @@ searchBtn.addEventListener('click', function (event) {
   fetchWeatherByCity(city);
   fetch5DayWeatherForecast(city);
 });
+
